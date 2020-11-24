@@ -1,15 +1,23 @@
-import React from "react"
+import React, {useState} from "react"
 import PropTypes from 'prop-types'
 import Featured from './Featured'
 
-const FilmCard = ({film}) => (
+const FilmCard = ({film}) => {
+    const [showDesc, setShowDesc] = useState(false);
+    const toggleDescription = (e) => {
+        e.preventDefault();
+        setShowDesc((showDesc) => !showDesc)
+    }
+    return (
         <div className="ui card">
 
-            <div className="image">
-                <span className="ui green label ribbon">$ {film?.price} </span>
-                <Featured featured={film.featured} id={film._id} />
-                <img src={film?.img} alt={film?.title} />
-            </div>
+            {
+                showDesc ? <p>{film.description}</p> : <div className="image">
+                    <span className="ui green label ribbon">$ {film?.price} </span>
+                    <Featured featured={film.featured} id={film._id} />
+                    <img src={film?.img} alt={film?.title} />
+                </div>
+            }
 
             <div className="content">
                 <span href="#" className="header">
@@ -22,9 +30,13 @@ const FilmCard = ({film}) => (
                         {film?.duration} min
                     </span>
                 </div>
+                <div>
+                    <i className={"icon link eye" + (showDesc ? " slash" : "")} onClick={toggleDescription} />
+                </div>
             </div>
         </div>
-)
+    )
+}
 
 FilmCard.proptTypes = {
     film: PropTypes.shape({
