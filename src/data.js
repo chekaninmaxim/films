@@ -8,7 +8,7 @@ const films = [
     duration: 93,
     price: 48.3,
     img: "/img/seeker.jpg",
-    featured: true,
+    featured: false,
     description:
       "After the mysterious murder of his father, a son's search for answers begins a momentous fight against tyranny.",
   },

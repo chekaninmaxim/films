@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react"
+import PropTypes from "prop-types"
 
 export default function Message({msg, type, color}) {
     return (
@@ -13,10 +13,9 @@ export default function Message({msg, type, color}) {
 }
 
 Message.defaultProps = {
-    type: 'info',
-    color: 'olive',
+    type: "info",
+    color: "olive",
 }
-
 Message.propTypes = {
     msg: PropTypes.string.isRequired,
     type: PropTypes.string,
