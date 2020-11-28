@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Modal, Button } from 'semantic-ui-react'
 
 const formInModal = (title) => (FormComponent) => (
-    (props) => {
+    () => {
         const [open, setOpen] = useState(false)
-        
+
         const closeDialog = () => setOpen(false);
 
         return (
@@ -17,7 +17,7 @@ const formInModal = (title) => (FormComponent) => (
             >
                 <Modal.Header>{title}</Modal.Header>
                 <Modal.Content>
-                    <FormComponent {...props} closeDialog={closeDialog} />
+                    <FormComponent closeDialog={closeDialog} />
                 </Modal.Content>
             </Modal>
         )
