@@ -1,22 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import {NavLink} from 'react-router-dom'
 
-const TopNavigation = ({showAddForm}) => (
+const TopNavigation = () => (
     <div className='ui secondary pointing menu'>
-        <a href="/" className='item'>
+        <NavLink exact to='/' className='item'>
             Home
-        </a>
-        <a href="#" className='item' onClick={showAddForm}>
+        </NavLink>
+        <NavLink exact to='/films' className='item'>
+           Films
+        </NavLink>
+        <NavLink exact to='/films/new' className='item'>
             <i className='icon plus' />
             Add new film
-        </a>
-
+        </NavLink>
     </div>
 )
-
-TopNavigation.propTypes = {
-    showAddForm: PropTypes.func.isRequired,
-}
 
 export default TopNavigation
 

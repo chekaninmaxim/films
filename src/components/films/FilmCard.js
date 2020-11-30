@@ -1,11 +1,12 @@
-import React, { useState, useContext } from "react"
-import { AppContext } from '../App'
+import React, {useState, useContext} from "react"
+import {AppContext} from '../App'
 import Featured from "./Featured"
 import PropTypes from "prop-types"
+import {Link} from 'react-router-dom'
 
-const FilmCard = React.memo(({ film }) => {
+const FilmCard = React.memo(({film}) => {
     const [isShowDescription, toggleDescription] = useState(false)
-    const { editFilm, deleteFilm } = useContext(AppContext)
+    const {editFilm, deleteFilm} = useContext(AppContext)
     const [confirm, setConfirm] = useState(false)
     const showConfirm = () => setConfirm(true)
     const hideConfirm = () => setConfirm(false)
@@ -17,12 +18,12 @@ const FilmCard = React.memo(({ film }) => {
                     <p>{film.description}</p>
                 </div>
             ) : (
-                    <div className="image">
-                        <span className="ui green label ribbon">{film.price}$</span>
-                        <Featured featured={film.featured} filmId={film._id} />
-                        <img src={film.img} alt={film.title} />
-                    </div>
-                )}
+                <div className="image">
+                    <span className="ui green label ribbon">{film.price}$</span>
+                    <Featured featured={film.featured} id={film._id} />
+                    <img src={film.img} alt={film.title} />
+                </div>
+            )}
 
             <div className="content">
                 <a href="/" className="header">
@@ -32,13 +33,13 @@ const FilmCard = React.memo(({ film }) => {
                     <i className="icon users" />
                     {film.director}
                     <span className="right floated">
-                        <i className="icon wait right" />
+          <i className="icon wait right" />
                         {film.duration} min
         </span>
                 </div>
 
                 <div className="content">
-                    <i onClick={() => toggleDescription(!isShowDescription)}
+                    <i  onClick={() => toggleDescription(!isShowDescription)}
                         className={`icon link eye ${isShowDescription ? "slash" : ""}`}
                     />
                 </div>
@@ -46,23 +47,23 @@ const FilmCard = React.memo(({ film }) => {
             <div className="extra content">
                 {confirm ? (
                     <div className="ui two buttons">
-                        <span className="ui red basic button" onClick={() => deleteFilm(film)}>
+                        <span  className="ui red basic button"  onClick={() => deleteFilm(film)}>
                             <i className="ui icon check" /> YES
                         </span>
                         <span className="ui grey basic button" onClick={hideConfirm}>
                             <i className="ui icon trash" /> NO
                         </span>
                     </div>
-                ) : (
-                        <div className="ui two buttons">
-                            <span className="ui green basic button" onClick={() => editFilm(film)}>
-                                <i className="ui icon edit" />
-                            </span>
-                            <span className="ui red basic button" onClick={showConfirm}>
-                                <i className="ui icon trash" />
-                            </span>
-                        </div>
-                    )}
+                    ) : (
+                    <div className="ui two buttons">
+                        <Link to={`/films/edit/${film._id}`} className="ui green basic button">
+                            <i className="ui icon edit" />
+                        </Link>
+                        <span className="ui red basic button" onClick={showConfirm}>
+                            <i className="ui icon trash" />
+                        </span>
+                    </div>
+                )}
 
 
             </div>

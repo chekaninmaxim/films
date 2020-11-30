@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ReactImageFallback from "react-image-fallback";
 import FormMessage from './FormMessage'
+import {Link, Redirect} from 'react-router-dom'
 
 const initialData = {
     title: '',
@@ -17,6 +18,8 @@ class FilmsForm extends Component {
     state = {
         data: initialData,
         errors: {},
+        isLoading: false,
+        isRedirect: false,
     }
 
     componentDidMount() {
@@ -26,6 +29,7 @@ class FilmsForm extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
+        debugger
         const {film} = props
 
         if (film._id && film._id !== state.data._id) {
@@ -51,7 +55,14 @@ class FilmsForm extends Component {
         this.setState({errors})
 
         if (Object.keys(errors).length === 0) {
+            this.setState({isLoading: true})
+
             this.props.submit(this.state.data)
+                .then(() => this.setState({isRedirect: true}))
+                .catch(error => this.setState({
+                    errors: error.response.data.errors,
+                    isLoading: false,
+                }))
         }
         console.log(this.state.data)
     }
@@ -87,10 +98,12 @@ class FilmsForm extends Component {
     }
 
     render() {
-        const {data, errors} = this.state;
+        const {data, errors, isLoading, isRedirect} = this.state;
+        const formClassName = isLoading ? 'ui form loading' : 'ui form'
 
         return (
-            <form className="ui form" onSubmit={this.handleSubmit}>
+            <form className={formClassName} onSubmit={this.handleSubmit}>
+                {isRedirect && <Redirect to='/films' />}
                 <div className="ui  grid">
                     <div className="twelve wide column">
                         <div className={errors.title ? 'field error': 'field'}>
@@ -167,7 +180,7 @@ class FilmsForm extends Component {
                 <div className="ui fluid buttons">
                     <button className="ui button primary" type="submit">Save</button>
                     <div className="or" />
-                    <span className="ui button" onClick={this.props.hideAddForm}>Hide form</span>
+                    <Link to='/films' className="ui button">Hide form</Link>
                 </div>
             </form>
         )
