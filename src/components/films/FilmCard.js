@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 
 const FilmCard = React.memo(({film}) => {
     const [isShowDescription, toggleDescription] = useState(false)
-    const {editFilm, deleteFilm} = useContext(AppContext)
+    const { deleteFilm } = useContext(AppContext)
     const [confirm, setConfirm] = useState(false)
     const showConfirm = () => setConfirm(true)
     const hideConfirm = () => setConfirm(false)
@@ -26,16 +26,16 @@ const FilmCard = React.memo(({film}) => {
             )}
 
             <div className="content">
-                <a href="/" className="header">
+                <Link to={`/films/${film._id}`} className="header">
                     {film.title}
-                </a>
+                </Link>
                 <div className="meta">
                     <i className="icon users" />
                     {film.director}
                     <span className="right floated">
-          <i className="icon wait right" />
+                        <i className="icon wait right" />
                         {film.duration} min
-        </span>
+                    </span>
                 </div>
 
                 <div className="content">
@@ -64,8 +64,6 @@ const FilmCard = React.memo(({film}) => {
                         </span>
                     </div>
                 )}
-
-
             </div>
         </div>
     )
