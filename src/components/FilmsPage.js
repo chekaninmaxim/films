@@ -43,10 +43,11 @@ class FilmsPage extends Component {
 
     componentDidMount() {
         api.films.fetchAll()
-            .then(films => this.setState({
+            .then(films =>  this.setState({
                 films: this.sortFilms(films),
                 isLoading: false,
-            }))
+            })
+        )
     }
 
     sortFilms = films => orderBy(films, ["featured", "title"], ["desc", "asc"])
@@ -92,7 +93,7 @@ class FilmsPage extends Component {
                             <div className='six wide column'>
                                 <FilmsForm
                                     submit={this.saveFilm}
-                                    film={find(this.state.films, { _id: props.match.params._id }) }
+                                    film={find(this.state.films, { _id: props.match.params._id }) || {} }
                                 />
                             </div>
                         )}
