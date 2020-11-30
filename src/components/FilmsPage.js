@@ -42,12 +42,10 @@ class FilmsPage extends Component {
     }
 
     componentDidMount() {
-        api.films.fetchAll()
-            .then(films =>  this.setState({
-                films: this.sortFilms(films),
-                isLoading: false,
-            })
-        )
+        api.films.fetchAll().then(films =>  this.setState({
+            films: this.sortFilms(films),
+            isLoading: false,
+        }))
     }
 
     sortFilms = films => orderBy(films, ["featured", "title"], ["desc", "asc"])
