@@ -29,20 +29,19 @@ class FilmsForm extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        debugger
         const {film} = props
 
         if (film._id && film._id !== state.data._id) {
             return {
                 data: film,
-                error: {}
+                errors: {}
             }
         }
 
         if (!film._id && state.data._id !== null) {
             return {
                 data: initialData,
-                error: {}
+                errors: {}
             }
         }
 
