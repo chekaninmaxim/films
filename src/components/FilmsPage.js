@@ -1,10 +1,9 @@
 import React, {Component} from "react"
-import {Route, Redirect} from 'react-router-dom'
 import api from "../api"
 import FilmsList from "./films"
 import {AppContext} from './App'
-import FilmForm from "./forms/FilmForm"
-import {NewFilm, EditFilm} from './changeFilms'
+import NewFilm  from './NewFilm'
+import EditFilm from './EditFilm'
 import {orderBy, find} from 'lodash';
 
 
