@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
 import FormMessage from './FormMessage'
 import isEmail from 'validator/lib/isEmail'
+import setFormObject from "./FormUtils";
 
 const initialData = {
     email: '',
@@ -14,11 +15,6 @@ const SignupForm = props => {
     const [errors, setErrors] = useState({})
     const [isLoading, setIsLoading] = useState(false)
     const cls = isLoading ? 'ui form loading': 'ui form'
-
-    const handleChange = e => {
-        setData({...data, [e.target.name]: e.target.value})
-        setErrors({...errors, [e.target.name]: ''})
-    }
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -57,7 +53,7 @@ const SignupForm = props => {
                     id="email"
                     placeholder="Email"
                     value={data.email}
-                    onChange={handleChange}
+                    onChange={setFormObject(data, setData)}
                 />
                 <FormMessage>{errors.email}</FormMessage>
             </div>
@@ -70,7 +66,7 @@ const SignupForm = props => {
                     id="password"
                     placeholder="password"
                     value={data.password}
-                    onChange={handleChange}
+                    onChange={setFormObject(data, setData)}
                 />
                 <FormMessage>{errors.password}</FormMessage>
             </div>
@@ -83,7 +79,7 @@ const SignupForm = props => {
                     id="passwordConfirmation"
                     placeholder="password confirmation"
                     value={data.passwordConfirmation}
-                    onChange={handleChange}
+                    onChange={setFormObject(data, setData)}
                 />
                 <FormMessage>{errors.passwordConfirmation}</FormMessage>
             </div>
